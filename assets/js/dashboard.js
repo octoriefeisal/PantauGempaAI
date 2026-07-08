@@ -1,3 +1,5 @@
+let map;
+
 async function loadEarthquakes() {
 
     const earthquakes = await getLatestEarthquakes();
@@ -6,14 +8,18 @@ async function loadEarthquakes() {
     // Map
     // ==========================
 
-    const map = L.map("map").setView([20, 0], 2);
+    if (!map) {
 
-    L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-            attribution: "© OpenStreetMap"
-        }
-    ).addTo(map);
+        map = L.map("map").setView([20, 0], 2);
+
+        L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                attribution: "© OpenStreetMap"
+            }
+        ).addTo(map);
+
+    }
 
     // ==========================
     // Dashboard Summary
@@ -56,30 +62,40 @@ async function loadEarthquakes() {
     // Earthquake Cards
     // ==========================
 
-    const container = document.getElementById("earthquake-container");
+    const container =
+        document.getElementById("earthquake-container");
 
     container.innerHTML = "";
 
+    if (markerLayer) {
+
+        markerLayer.clearLayers();
+
+    } else {
+
+        markerLayer = L.layerGroup().addTo(map);
+
+    }
+
+    const bounds = [];
     earthquakes.forEach(quake => {
 
-        // Magnitude
         const mag = Number(
             (quake.properties.mag || 0).toFixed(1)
         );
 
-        // Level & Color
-        const result = getMagnitudeLevel(mag);
+        const result =
+            getMagnitudeLevel(mag);
 
         const level = result.level;
 
         const color = result.color;
 
-        // Tsunami
-        const tsunami = getTsunamiStatus(
-            quake.properties.tsunami
-        );
+        const tsunami =
+            getTsunamiStatus(
+                quake.properties.tsunami
+            );
 
-        // Marker Map
         loadMap(
             map,
             quake,
@@ -87,12 +103,19 @@ async function loadEarthquakes() {
             tsunami,
             color
         );
+        const marker = loadMap(
+            map,
+            quake,
+            mag,
+            tsunami,
+            color
+        );
+        bounds.push(marker.getLatLng());
 
-        // Card
         container.innerHTML += `
 
             <div class="quake-card"
-                 style="border-left:8px solid ${color};">
+                style="border-left:8px solid ${color};">
 
                 <span
                     class="badge"
@@ -117,8 +140,10 @@ async function loadEarthquakes() {
                 <p>
 
                     🕒
-                    ${new Date(quake.properties.time)
-                        .toLocaleString("id-ID")}
+
+                    ${new Date(
+                        quake.properties.time
+                    ).toLocaleString("id-ID")}
 
                 </p>
 
@@ -131,7 +156,12 @@ async function loadEarthquakes() {
                 <p>
 
                     Status :
-                    <b>${quake.properties.status.toUpperCase()}</b>
+
+                    <b>
+
+                        ${quake.properties.status.toUpperCase()}
+
+                    </b>
 
                 </p>
 
@@ -140,6 +170,11 @@ async function loadEarthquakes() {
         `;
 
     });
+    if (bounds.length > 0) {
+    map.fitBounds(bounds, {
+        padding: [50, 50]
+    });
+}
 
 }
 

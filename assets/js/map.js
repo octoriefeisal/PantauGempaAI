@@ -1,5 +1,7 @@
 const markers = {};
 
+let markerLayer;
+
 function loadMap(map, quake, mag, tsunami, color) {
 
     const lat = quake.geometry.coordinates[1];
@@ -17,36 +19,66 @@ function loadMap(map, quake, mag, tsunami, color) {
 
         weight: 2
 
-    }).addTo(map);
+    }).addTo(markerLayer);
 
     marker.bindPopup(`
+
         <div style="min-width:220px;">
 
             <h3 style="margin:0;color:${color};">
+
                 🌍 Earthquake
+
             </h3>
 
             <hr>
 
-            <p>📍 ${quake.properties.place}</p>
-
-            <p>📈 Magnitude : <b>${mag}</b></p>
-
-            <p>${tsunami}</p>
-
             <p>
-                🕒 ${new Date(quake.properties.time).toLocaleString("id-ID")}
+
+                📍 ${quake.properties.place}
+
             </p>
 
             <p>
+
+                📈 Magnitude :
+
+                <b>${mag}</b>
+
+            </p>
+
+            <p>
+
+                ${tsunami}
+
+            </p>
+
+            <p>
+
+                🕒
+
+                ${new Date(
+                    quake.properties.time
+                ).toLocaleString("id-ID")}
+
+            </p>
+
+            <p>
+
                 Status :
-                <b>${quake.properties.status.toUpperCase()}</b>
+
+                <b>
+
+                    ${quake.properties.status.toUpperCase()}
+
+                </b>
+
             </p>
 
         </div>
+
     `);
 
     markers[quake.id] = marker;
-
     return marker;
 }

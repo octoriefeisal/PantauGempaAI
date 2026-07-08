@@ -13,7 +13,27 @@
 <body>
 
     <h1>Pantau Gempa AI</h1>
+    <div class="filter-container">
 
+        <label for="magnitudeFilter">
+
+            Filter Magnitude
+
+        </label>
+
+        <select id="magnitudeFilter">
+
+            <option value="0">All</option>
+
+            <option value="3">Magnitude ≥ 3</option>
+
+            <option value="5">Magnitude ≥ 5</option>
+
+            <option value="7">Magnitude ≥ 7</option>
+
+        </select>
+
+    </div>
     <div id="dashboard-summary"></div>
     <div id="earthquake-container"></div>
     <h2>🌍 Live Earthquake Map</h2>
