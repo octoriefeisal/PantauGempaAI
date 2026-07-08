@@ -1,0 +1,161 @@
+body{
+
+    font-family: Arial;
+
+    background:#f4f4f4;
+
+    margin:40px;
+
+}
+
+h1{
+
+    text-align:center;
+
+}
+
+.quake-card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+    transition:.3s;
+
+    min-height:280px;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.summary-container{
+
+    display:flex;
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
+
+.summary-card{
+
+    flex:1;
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+.summary-card h1{
+
+    color:#1565C0;
+
+}
+
+.badge{
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    display:inline-block;
+
+    margin-bottom:15px;
+
+}
+
+.quake-card h2{
+
+    color:#1565C0;
+
+    font-size:36px;
+
+    margin:10px 0;
+
+}
+
+.quake-card h3{
+
+    margin-bottom:15px;
+
+}
+
+.quake-card p{
+
+    color:#555;
+
+    margin:8px 0;
+
+}
+
+#earthquake-container{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:20px;
+
+    margin-top:30px;
+
+}
+
+
+.quake-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+
+}
+
+.detail-btn{
+
+    margin-top:auto;
+
+}
+
+.magnitude{
+
+    color:#1565C0;
+
+    font-size:40px;
+
+    margin:15px 0;
+
+}
+
+.location{
+
+    font-size:20px;
+
+    margin-bottom:15px;
+
+    color:#333;
+
+}
+
+#map{
+
+    height:650px;
+
+}
