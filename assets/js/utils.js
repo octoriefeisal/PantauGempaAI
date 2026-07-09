@@ -43,3 +43,10 @@ function getTsunamiStatus(tsunami){
         : "🌊 No Tsunami";
 
 }
+
+function openDetail(id){
+
+    window.location.href =
+        `pages/detail.html?id=${id}`;
+
+}

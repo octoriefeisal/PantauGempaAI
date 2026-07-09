@@ -36,6 +36,9 @@ function renderCards(container, earthquakes, map, bounds) {
         container.innerHTML += `
 
             <div class="quake-card"
+
+                onclick="openDetail('${quake.id}')"
+
                 style="border-left:8px solid ${color};">
 
                 <span
